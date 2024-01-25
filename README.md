@@ -50,7 +50,13 @@ May need to leverage Facebook and/or Instagram APIs to pull in posts from those.
 
 ### Mockups
 
-In progress. Will add soon. 
+**Homepage**
+
+![Homepage mockup](./app/assets/images/OMRHL-homepage-mockup.png)
+
+**Team Page**
+
+![Team page mockup](./app/assets/images/OMRHL-team-page-mockup.png)
 
 ### Data
 
