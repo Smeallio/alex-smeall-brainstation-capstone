@@ -18,34 +18,26 @@ In most of these leagues, the people running them are doing so part-time on top 
 
 ### Features
 
-- A homepage with some nice graphics and a synopsis of recent announcements. It should also be obvious how people can navigate to the schedules, standings, rosters and stats. 
-- A schedule page that showcases upcoming games.
-- A scores/results page that showcases recent games, the score, the results and links to their boxscores.
-- A rosters page that shows off the roster of each team including names, positions, numbers and stats.
-- A stats page that shows off the overall stats of the league including who is leading in certain categories.
-- A standings page that shows off the record of each team and what position they are in.
+- A homepage with some nice graphics, a summary of recent games, upcoming games and a feed of recent announcements. 
+- A teams page for each team that shows off the roster of each team including names, positions, numbers and stats. It will also include a table summarizing previous game results as well as the upcoming schedule. 
 - Certain logged in members will have the ability to add players to teams and add games results to populate the pages above. 
 
 ## Implementation
 
 ### Tech Stack
 
-The plan is to build this with next.js using Firebase as the platform. This may or may not require a node.js server (still looking into that) and will leverage the Firebase NoSQL database to keep track of schedules, scores and stats. 
+- React app
+- Node.js as the backend 
+- Knex.js for the database
 
 ### APIs
 
-May need to leverage Facebook and/or Instagram APIs to pull in posts from those. Otherwise, most data will be input by the people running the league. 
+Nothing external for this phase. 
 
 ### Sitemap
 
 - Homepage
-- Standings Page
-- Teams Page
-- Roster for each team
-- Stats page
-- Stats for each team
-- Schedule page
-- Announcements page (may live on homepage)
+- Teams Page x 4
 - Backend login for league managers to enter data
 
 ### Mockups
@@ -68,7 +60,209 @@ May need to leverage Facebook and/or Instagram APIs to pull in posts from those.
 
 ### Endpoints
 
-In progress. Will add soon. 
+**GET /players**
+
+The plan is to populate the stats portion of this table by summarizing rows from the GAMES table.
+
+```
+{
+    "id": 1,
+    "name": "Alex Smeall (C)",
+    "number": 21,
+    "position": "F",
+    "games": 11,
+    "goals": 9,
+    "assists": 12,
+    "points": 21,
+    "penalties": 3
+}
+```
+
+**POST /players**
+
+The categories not shown here will all default to 0.
+
+```
+{
+    "id": 2,
+    "name": "New Guy",
+    "number": 99,
+    "position": "F",
+}
+```
+
+**PUT /players/:id**
+
+The statistics may only be editable via the games PUT
+
+```
+{
+    "name": "New Guy",
+    "number": 99,
+    "position": "F",
+    "games": 2,
+    "goals": 3,
+    "assists": 2,
+    "points": 5,
+    "penalties": 1
+}
+```
+
+**DELETE /players/:id**
+
+```
+{
+    "name": "Must match player name"
+}
+```
+
+**GET /games**
+
+```
+{
+    "id": 1,
+    "date": "January 2, 2024",
+    "team1": {
+        "name": "Fogtown Leprechauns",
+        "score": 8,
+        "players": {
+            "id": 1,
+            "name": "Alex Smeall"
+            "goals": 1,
+            "assists": 1,
+            "penalties": 1
+        },
+        {
+            "id": 2,
+            "name": "New Guy"
+            "goals": 1,
+            "assists": 0,
+            "penalties": 0
+        }
+    },
+    "team2": {
+        "name": "Mighty Moose",
+        "score": 8,
+        "players": {
+            "id": 55,
+            "name": "Johnny Hockey"
+            "goals": 0,
+            "assists": 1,
+            "penalties": 1
+        },
+        {
+            "id": 56,
+            "name": "Gordie Puck"
+            "goals": 2,
+            "assists": 1,
+            "penalties": 0
+        }
+    }
+
+}
+```
+
+**PUT /games**
+
+```
+{
+    "date": "January 9, 2024",
+    "team1": {
+        "name": "Fogtown Leprechauns",
+        "score": 7,
+        "players": {
+            "id": 1,
+            "name": "Alex Smeall"
+            "goals": 0,
+            "assists": 2,
+            "penalties": 0
+        },
+        {
+            "id": 2,
+            "name": "New Guy"
+            "goals": 1,
+            "assists": 1,
+            "penalties": 1
+        }
+    },
+    "team2": {
+        "name": "Kraken Beers",
+        "score": 9,
+        "players": {
+            "id": 22,
+            "name": "Jimmy Dangles"
+            "goals": 2,
+            "assists": 2,
+            "penalties": 0
+        },
+        {
+            "id": 23,
+            "name": "Donnie Shooter"
+            "goals": 3,
+            "assists": 1,
+            "penalties": 1
+        }
+    }
+
+}
+```
+
+**PUT /games/:id**
+
+```
+{
+    "date": "January 9, 2024",
+    "team1": {
+        "name": "Fogtown Leprechauns",
+        "score": 7,
+        "players": {
+            "id": 1,
+            "name": "Alex Smeall"
+            "goals": 0,
+            "assists": 2,
+            "penalties": 0
+        },
+        {
+            "id": 2,
+            "name": "New Guy"
+            "goals": 1,
+            "assists": 1,
+            "penalties": 1
+        }
+    },
+    "team2": {
+        "name": "Kraken Beers",
+        "score": 9,
+        "players": {
+            "id": 22,
+            "name": "Jimmy Dangles"
+            "goals": 2,
+            "assists": 1,
+            "penalties": 0
+        },
+        {
+            "id": 23,
+            "name": "Donnie Shooter"
+            "goals": 3,
+            "assists": 1,
+            "penalties": 1
+        }
+    }
+
+}
+```
+
+**PUT /games/:id**
+
+**DELETE /players/:id**
+
+```
+{
+    "date": "Must match date of the game"
+}
+```
+
+
 
 ### Auth
 
