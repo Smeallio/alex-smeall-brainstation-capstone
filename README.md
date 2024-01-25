@@ -20,7 +20,7 @@ In most of these leagues, the people running them are doing so part-time on top 
 
 - A homepage with some nice graphics, a summary of recent games, upcoming games and a feed of recent announcements. 
 - A teams page for each team that shows off the roster of each team including names, positions, numbers and stats. It will also include a table summarizing previous game results as well as the upcoming schedule. 
-- Certain logged in members will have the ability to add players to teams and add games results to populate the pages above. 
+- League managers will get logins that provide the ability to create, update and delete players, games and announcements. 
 
 ## Implementation
 
@@ -37,7 +37,7 @@ Nothing external for this phase.
 ### Sitemap
 
 - Homepage
-- Teams Page x 4
+- Teams pages x 4
 - Backend login for league managers to enter data
 
 ### Mockups
@@ -52,11 +52,10 @@ Nothing external for this phase.
 
 ### Data
 
-- Every league will require a list of teams. Those teams will need details such as the name, captain, colour, etc.
-- Every league will require a schedule that utilizes the list of teams to figure out who plays who. 
-- That schedule will get turned into a score when game results are inputted. Those scores will then influence the standings table. 
-- The standings table will track datapoints such as wins, losses, ties, goals scored and goals again for each team and need to be sortable. 
-- Each team will then need a stats table that tracks player names, numbers, etc but also summarizes their stats from each game result such as goals, assists, penalties, etc. 
+- Each team will include player details such as names, numbers and positions. 
+- Each team will then need a stats table that tracks games played, goals, assists, penalties, etc. 
+- Game results will need to update the standings accordingly. The standings table will track datapoints such as wins, losses, ties and points. 
+
 
 ### Endpoints
 
@@ -121,7 +120,8 @@ The statistics may only be editable via the games PUT
 ```
 {
     "id": 1,
-    "date": "January 2, 2024",
+    "date": "January 2, 2024 @ 10pm",
+    "status": "complete",
     "team1": {
         "name": "Fogtown Leprechauns",
         "score": 8,
@@ -162,46 +162,17 @@ The statistics may only be editable via the games PUT
 }
 ```
 
-**PUT /games**
+**POST /games**
 
 ```
 {
-    "date": "January 9, 2024",
+    "date": "January 9, 2024 @ 9pm",
+    "status": "pending",
     "team1": {
-        "name": "Fogtown Leprechauns",
-        "score": 7,
-        "players": {
-            "id": 1,
-            "name": "Alex Smeall"
-            "goals": 0,
-            "assists": 2,
-            "penalties": 0
-        },
-        {
-            "id": 2,
-            "name": "New Guy"
-            "goals": 1,
-            "assists": 1,
-            "penalties": 1
-        }
-    },
+        "name": "Fogtown Leprechauns"
+    }
     "team2": {
-        "name": "Kraken Beers",
-        "score": 9,
-        "players": {
-            "id": 22,
-            "name": "Jimmy Dangles"
-            "goals": 2,
-            "assists": 2,
-            "penalties": 0
-        },
-        {
-            "id": 23,
-            "name": "Donnie Shooter"
-            "goals": 3,
-            "assists": 1,
-            "penalties": 1
-        }
+        "name": "Kraken Beers"
     }
 
 }
@@ -211,7 +182,7 @@ The statistics may only be editable via the games PUT
 
 ```
 {
-    "date": "January 9, 2024",
+    "date": "January 9, 2024 @ 9pm",
     "team1": {
         "name": "Fogtown Leprechauns",
         "score": 7,
@@ -251,8 +222,6 @@ The statistics may only be editable via the games PUT
 
 }
 ```
-
-**PUT /games/:id**
 
 **DELETE /players/:id**
 
@@ -262,24 +231,55 @@ The statistics may only be editable via the games PUT
 }
 ```
 
+**GET /accouncements**
 
+```
+{
+    "id": 1,
+    "title": "Holiday Break",
+    "date": timestamp,
+    "body": "Next Tuesday, December 19th will mark our final games for this calendar year. We will resume on Tuesday, January 2nd. We hope everyone has a great holidays!"
+}
+```
+
+**POST /accouncements**
+
+```
+{
+    "title": "Title",
+    "date": timestamp,
+    "body": "Placeholder text"
+}
+```
+
+**PUT /accouncements/:id**
+
+```
+{
+    "title": "Title",
+    "date": timestamp,
+    "body": "Placeholder text"
+}
+```
+
+**DELETE /accouncements/:id**
+
+```
+{
+    "date": "Must match date of the game"
+}
+```
 
 ### Auth
 
-Yes, will implement via firebase. Two permission levels:
-
-- League managers who can do almost anything
-- Team captains who can add players and edit players within their own team
+This will need to have a login that reveals a page where league managers can add players, delete players, update player information, add game information, update game information, delete game information, add announcements, update announcements and delete announcements. 
 
 ## Roadmap
 
-1. Build out homepage layout with mock data
-2. Build out team pages with static data
-3. Build out schedule page with static data
-4. Build out standings page with static data
-5. Build out stats page with static data
-6. Setup database to collect per game results
-7. Configure database to dynamically populate the standings and stats pages
+1. Build out homepage layout with static mock data
+2. Build out team pages with static mock data
+3. Setup database tables to collect per game results, team info and announcements
+4. Configure database to dynamically populate the data on the homepage and teams pages
 
 ## Nice-to-haves
 
