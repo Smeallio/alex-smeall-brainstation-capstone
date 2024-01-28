@@ -53,13 +53,13 @@ Nothing external for this phase.
 
 **Login Page**
 
-![Login page mockup](./assets/images/OMRHL-signin-mockup.png)
+![Login page mockup](./app/assets/images/OMRHL-signin-mockup.png)
 
 **Data Updates and Entry Page**
 
 This will be available to authenticated and authorized users only. 
 
-![Data entry page mockup](./assets/images/OMRHL-dataentry-mockup.png)
+![Data entry page mockup](./app/assets/images/OMRHL-dataentry-mockup.png)
 
 ### Data
 
