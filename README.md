@@ -28,7 +28,8 @@ In most of these leagues, the people running them are doing so part-time on top 
 
 - React app
 - Node.js as the backend 
-- Knex.js for the database
+- MYSQL for the database
+- Knex.js for the query builder
 
 ### APIs
 
@@ -50,12 +51,21 @@ Nothing external for this phase.
 
 ![Team page mockup](./app/assets/images/OMRHL-team-page-mockup.png)
 
+**Login Page**
+
+![Login page mockup](./assets/images/OMRHL-signin-mockup.png)
+
+**Data Updates and Entry Page**
+
+This will be available to authenticated and authorized users only. 
+
+![Data entry page mockup](./assets/images/OMRHL-dataentry-mockup.png)
+
 ### Data
 
 - Each team will include player details such as names, numbers and positions. 
 - Each team will then need a stats table that tracks games played, goals, assists, penalties, etc. 
 - Game results will need to update the standings accordingly. The standings table will track datapoints such as wins, losses, ties and points. 
-
 
 ### Endpoints
 
@@ -79,11 +89,10 @@ The plan is to populate the stats portion of this table by summarizing rows from
 
 **POST /players**
 
-The categories not shown here will all default to 0.
+The categories not shown here will all default to 0, except the ID which will be a unique number not already in use. 
 
 ```
 {
-    "id": 2,
     "name": "New Guy",
     "number": 99,
     "position": "F",
